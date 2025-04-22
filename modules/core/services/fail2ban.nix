@@ -1,5 +1,5 @@
-{
-  services.fail2ban = {
+{ lib, ... }: {
+  services.fail2ban = lib.mkForce {
     enable = true;
     jails = {
       sshd = ''

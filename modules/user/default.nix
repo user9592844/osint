@@ -8,7 +8,7 @@
         isNormalUser = true;
         password = "hunter2";
 
-        extraGroups = [ "wheel" ];
+        extraGroups = [ "wheel" "networkmanager" ];
 
         shell = pkgs.bash; # Default shell
       };
