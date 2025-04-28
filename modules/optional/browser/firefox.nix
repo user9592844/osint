@@ -1,13 +1,4 @@
-let
-  lock-false = {
-    Value = false;
-    Status = "locked";
-  };
-  lock-true = {
-    Value = true;
-    Status = "locked";
-  };
-in {
+{
   programs.firefox = {
     enable = true;
 
@@ -68,8 +59,7 @@ in {
       "browser.safebrowsing.phishing.enabled" = false;
       "browser.safebrowsing.downloads.enabled" = false;
       "browser.safebrowsing.downloads.remote.url" = "";
-      "browser.safebrowsing.downloads.remote.block_potentially_unwanted" =
-        false;
+      "browser.safebrowsing.downloads.remote.block_potentially_unwanted" = false;
       "browser.safebrowsing.allowOverride" = false;
 
       # Section 0600: BLOCK IMPLICIT OUTBOUND

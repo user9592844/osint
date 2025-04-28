@@ -27,7 +27,10 @@
       "~@cpu-emulation"
     ];
     LockPersonality = true;
-    IPAddressDeny = [ "0.0.0.0/0" "::/0" ];
+    IPAddressDeny = [
+      "0.0.0.0/0"
+      "::/0"
+    ];
     MemoryDenyWriteExecute = true;
     DevicePolicy = "closed";
     UMask = 77;

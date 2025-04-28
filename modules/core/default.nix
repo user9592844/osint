@@ -1,4 +1,5 @@
-{ configLib, ... }: {
-  imports = (configLib.scanPaths ./.);
+{ configLib, ... }:
+{
+  imports = configLib.scanPaths ./.;
   nixpkgs.config.allowUnfree = true;
 }
