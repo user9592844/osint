@@ -13,7 +13,10 @@
     PrivateTmp = true;
     RestrictSUIDSGID = true;
     RestrictRealtime = true;
-    RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+    RestrictAddressFamilies = [
+      "AF_UNIX"
+      "AF_NETLINK"
+    ];
     RestrictNamespaces = true;
     SystemCallErrorNumber = "EPERM";
     SystemCallArchitectures = "native";
@@ -26,9 +29,11 @@
       "~@cpu-emulation"
     ];
     LockPersonality = true;
-    IPAddressDeny = [ "0.0.0.0/0" "::/0" ];
+    IPAddressDeny = [
+      "0.0.0.0/0"
+      "::/0"
+    ];
     MemoryDenyWriteExecute = true;
     UMask = 77;
   };
 }
-

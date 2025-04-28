@@ -1,5 +1,4 @@
-{ inputs, outputs, pkgs, lib, configLib, ... }:
-
+{ lib, ... }:
 {
   systemd.services.display-manager.serviceConfig = {
     ProtectSystem = "full";
@@ -11,7 +10,12 @@
     RestrictSUIDSGID = true;
     RestrictRealtime = true;
     RestrictNamespaces = [ "~cgroup" ];
-    RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" "AF_INET" "AF_INET6" ];
+    RestrictAddressFamilies = [
+      "AF_UNIX"
+      "AF_NETLINK"
+      "AF_INET"
+      "AF_INET6"
+    ];
     SystemCallErrorNumber = "EPERM";
     SystemCallFilter = [
       "~@obsolete"
@@ -25,7 +29,10 @@
     ];
     SystemCallArchitectures = "native";
     LockPersonality = true;
-    IPAddressDeny = [ "0.0.0.0/0" "::/0" ];
+    IPAddressDeny = [
+      "0.0.0.0/0"
+      "::/0"
+    ];
     CapabilityBoundingSet = [
       "CAP_SYS_ADMIN"
       "CAP_SETUID"

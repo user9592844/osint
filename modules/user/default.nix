@@ -1,4 +1,5 @@
-{ pkgs, lib, ...}: {
+{ pkgs, ... }:
+{
   users = {
     mutableUsers = false;
 
@@ -8,7 +9,10 @@
         isNormalUser = true;
         password = "hunter2";
 
-        extraGroups = [ "wheel" "networkmanager" ];
+        extraGroups = [
+          "wheel"
+          "networkmanager"
+        ];
 
         shell = pkgs.bash; # Default shell
       };

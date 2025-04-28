@@ -1,5 +1,10 @@
-{ lib, configLib, ... }: {
-  imports = [ ./hardware-configuration.nix ./disko-config.nix ]
+{ lib, configLib, ... }:
+{
+  imports =
+    [
+      ./hardware-configuration.nix
+      ./disko-config.nix
+    ]
     ++ (map configLib.relativeToRoot [
       # Core Modules (DO NOT REMOVE)
       "modules/core"
@@ -61,7 +66,10 @@
       # timeout = 3;
     };
 
-    blacklistedKernelModules = [ "firewire-core" "thunderbolt" ];
+    blacklistedKernelModules = [
+      "firewire-core"
+      "thunderbolt"
+    ];
   };
 
   networking = {
@@ -85,12 +93,18 @@
   fileSystems = {
     "/tmp" = {
       fstype = "tmpfs";
-      options = [ "mode=1777" "size=512M" ];
+      options = [
+        "mode=1777"
+        "size=512M"
+      ];
     };
 
     "/var" = {
       fsType = "tmpfs";
-      options = [ "mode=0755" "size=512M" ];
+      options = [
+        "mode=0755"
+        "size=512M"
+      ];
     };
   };
 

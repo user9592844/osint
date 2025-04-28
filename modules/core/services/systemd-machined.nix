@@ -3,7 +3,7 @@
     NoNewPrivileges = true;
     ProtectSystem = "strict";
     ProtectHome = true;
-    ProtectClock = true; 
+    ProtectClock = true;
     ProtectHostname = true;
     ProtectKernelTunables = true;
     ProtectKernelModules = true;
