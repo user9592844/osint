@@ -66,8 +66,8 @@ jobs:
           DATE=$(date +%Y%m%d)
           ARCH=$(uname -m)-linux
           ISO_PATH=$(readlink -f result/iso/*.iso)
-          HASH=$(nix hash file "$ISO_PATH" | cut -c1-8)
-          FILENAME="osint-${ARCH}-${DATE}-${HASH}.iso"
+          HASH=$(nix hash file "$ISO_PATH" | cut -c8-15)
+          FILENAME="osint-${DATE}-${HASH}-${ARCH}.iso"
           echo "filename=$FILENAME" >> $GITHUB_OUTPUT
 
       - name: Upload ISO artifact
