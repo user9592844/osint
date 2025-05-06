@@ -24,58 +24,16 @@ jobs:
         run: |
           nix build
 
-      - name: Calculate ISO hash
-        id: calculate_hash
+      - name: Create a tarball of directory
         run: |
-          ISO_FILE=$(readlink -f result/iso/*.iso)
-          HASH=$(nix hash file "$ISO_FILE")
-          echo "iso_hash=$HASH" >> $GITHUB_OUTPUT
-
-      - name: Load previous hash (if exists)
-        id: load_previous_hash
-        run: |
-          if [ -f .github/iso.hash ]; then
-            echo "Previous hash found."
-            PREVIOUS_HASH=$(cat .github/iso.hash)
-            echo "previous_hash=$PREVIOUS_HASH" >> $GITHUB_OUTPUT
-          else
-            echo "No previous hash found."
-            echo "previous_hash=none" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Compare hashes
-        id: compare_hash
-        run: |
-          if [ "${{ steps.calculate_hash.outputs.iso_hash }}" != "${{ steps.load_previous_hash.outputs.previous_hash }}" ]; then
-            echo "ISO has changed."
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "ISO is unchanged."
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Save new hash
-        if: steps.compare_hash.outputs.changed == 'true'
-        run: |
-          echo "${{ steps.calculate_hash.outputs.iso_hash }}" > .github/iso.hash
-
-      - name: Set ISO filename
-        id: set_iso_filename
-        if: steps.compare_hash.outputs.changed == 'true'
-        run: |
-          DATE=$(date +%Y%m%d)
-          ARCH=$(uname -m)-linux
-          ISO_PATH=$(readlink -f result/iso/*.iso)
-          HASH=$(nix hash file "$ISO_PATH" | cut -c8-15)
-          FILENAME="osint-${DATE}-${HASH}-${ARCH}.iso"
-          echo "filename=$FILENAME" >> $GITHUB_OUTPUT
+          tar -czf iso-bundle.tar.gz result/*
 
       - name: Upload ISO artifact
         if: steps.compare_hash.outputs.changed == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.set_iso_filename.outputs.filename }}
-          path: result/iso/*.iso
+          name: iso-bundle
+          path: iso-bundle.tar.gz
 
       - name: Commit updated hash
         if: steps.compare_hash.outputs.changed == 'true'
