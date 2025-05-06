@@ -1,4 +1,4 @@
-{ lib, ...}:
+{ lib, ... }:
 {
   systemd.services.bluetooth.serviceConfig = lib.mkForce {
     ProtectKernelTunables = true;

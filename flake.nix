@@ -13,7 +13,8 @@
       inherit (nixpkgs) lib;
       configLib = import ./lib { inherit lib; };
       specialArgs = { inherit configLib nixpkgs; };
-    in {
+    in
+    {
 
       nixosConfigurations = {
         olympus = lib.nixosSystem {
@@ -38,19 +39,22 @@
 
           # Find the ISO files in the build output directory, and if only one grab the name
           isoDirFiles = builtins.attrNames (builtins.readDir "${iso}/iso");
-          isoFile = let
-            isoFiles =
-              builtins.filter (name: builtins.match ".*\\.iso$" name != null)
-              isoDirFiles;
-            numIsoFiles = builtins.length isoFiles;
-          in if numIsoFiles == 1 then
-            builtins.head isoFiles
-          else
-            throw "Expected exactly one ISO file in ${iso}/iso";
+          isoFile =
+            let
+              isoFiles =
+                builtins.filter (name: builtins.match ".*\\.iso$" name != null)
+                  isoDirFiles;
+              numIsoFiles = builtins.length isoFiles;
+            in
+            if numIsoFiles == 1 then
+              builtins.head isoFiles
+            else
+              throw "Expected exactly one ISO file in ${iso}/iso";
 
           isoHash = builtins.hashFile "sha256" "${iso}/iso/${isoFile}";
           commitHash = self.rev or "dirty";
-        in {
+        in
+        {
           default = pkgs.stdenv.mkDerivation {
             name = "iso-with-metadata";
 
